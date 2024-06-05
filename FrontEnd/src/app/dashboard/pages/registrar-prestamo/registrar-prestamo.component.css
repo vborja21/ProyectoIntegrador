@@ -1,0 +1,74 @@
+.table-bordered {
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #6f42c1; /* Color morado oscuro para la cabecera */
+    color: white;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2e8ff; /* Color morado claro, para las filas impares */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Color blanco, para las filas pares */
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dedede; /* Color gris claro para las bordes */
+}
+
+/* Colores específicos para las filas destacadas con Bootstrap */
+.bg-primary, .bg-danger, .bg-warning, .bg-success {
+    background-color: #6f42c1 !important; /* Reutilizando el morado para todas las filas destacadas */
+    color: white;
+}
+
+.hoverable-cell:hover {
+    background-color: #cccccc; /* Cambia esto por el color que desees */
+    cursor: pointer; /* Opcional: cambia el cursor a una mano para indicar que es clickable */
+}
+
+h1 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Estilos para la sección de información del negocio */
+  .business-info {
+    background-color: #f8f9fa;
+    padding: 50px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 15px;
+}
+
+.business-info p {
+    line-height: 1.6;
+}
+
+.business-info img {
+    max-width: 100%;
+    margin-top: 30px;
+    border-radius: 10px;
+    height: 1cm;
+    width: 100%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}

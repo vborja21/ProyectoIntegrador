@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .jumbotron {
+    background-color: #ffc600;
+    color: #fff;
+    padding: 80px 30px;
+    border-radius: 20px;
+  }
+
+  .card {
+    border: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }

@@ -1,0 +1,37 @@
+<div id="menu" class="d-flex flex-column bg-dark vh-100 position-fixed text-light" style="width: 256px; overflow-y: auto;">
+    <div id="logo" class="my-4 px-3">
+        <h1 class="h3 fw-bold text-white">DashBoard<span class="text-primary">Yape</span>.</h1>
+        <p class="text-secondary small">Maneja tus préstamos y actividades</p>
+    </div>
+    <div id="profile" class="px-3">
+        <p class="text-secondary">Bienvenido</p>
+        <a href="#" class="d-inline-flex align-items-center gap-2">
+            <span>
+                <img class="rounded-circle" style="width: 32px; height: 32px;"
+                    src="../../../../assets/images/person.jpg"
+                    alt="User Image">
+            </span>
+            <span class="small fw-bold">
+                Administrador
+            </span>
+        </a>
+    </div>
+    <div id="nav" class="flex-grow-1 px-3 py-5">
+        <!-- Opciones -->
+        <a *ngFor="let item of menuItems" [routerLink]="item.path" routerLinkActive="bg-primary" href="#"
+            class="d-inline-flex align-items-center gap-2 border-bottom border-secondary py-2 w-100 text-decoration-none"
+            style="transition: background-color 0.15s ease-in-out;">
+            <div class="d-flex flex-column">
+                <span class="h6 mb-0 fw-bold text-white"> {{ item.title }} </span>
+                <span class="small text-white-50 d-none d-md-block"> {{ item.title }} </span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Bottom Section for Logout Button -->
+    <div class="mt-auto px-3 pb-3">
+        <button class="btn btn-outline-danger w-100" (click)="logout()">
+            Salir
+        </button>
+    </div>
+</div>

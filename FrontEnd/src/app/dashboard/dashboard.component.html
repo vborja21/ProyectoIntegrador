@@ -1,0 +1,11 @@
+<div class="d-flex bg-light text-dark overflow-auto vh-100 vw-100">
+    <!-- SideBar -->
+    <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 280px;"> <!-- Adjust width as needed -->
+        <app-sidebar />
+    </div>
+
+    <!-- Componentes Hijos(Prestatario - Prestamista - etc....) -->
+    <div class="flex-grow-1 p-2">
+        <router-outlet></router-outlet>
+    </div>
+</div>

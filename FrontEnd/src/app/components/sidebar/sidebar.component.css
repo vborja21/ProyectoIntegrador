@@ -1,0 +1,46 @@
+.titulo-grande {
+    font-size: 1.0em; /* Tamaño del texto más grande */
+     /* Texto en negrita */
+    color: red; /* Color rojo */
+    margin-right: 6px;
+  }
+  .sidebar {
+    /* Alinea el sidebar a la izquierda */
+    width: 200px; /* Ancho del sidebar según tus necesidades */
+    /* Agrega otros estilos según sea necesario */
+    margin-left: 600px;
+  }
+  .imagen-pequena {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; /* Agrega un margen a la derecha para separar la imagen del texto */
+  }
+  .list-group {
+    margin-top: 60px; /* Puedes ajustar el valor según tus necesidades */
+    float: left;
+    
+  }
+  .list-group-item {
+    padding-bottom: 10px; /* Puedes ajustar el valor según tus necesidades */
+    margin-bottom: 23px; /* Puedes ajustar el valor según tus necesidades */
+  }
+
+  .link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .linkDos{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #FBB03C;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  
+  .link:hover {
+    text-decoration: none;
+  }

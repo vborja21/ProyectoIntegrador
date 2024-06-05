@@ -1,0 +1,39 @@
+<div class="header-container" style="margin-top: 1cm;">
+    
+    <h1 class="text-center mb-4"><strong>Listado de prestamos</strong></h1>
+    <!-- Tabla -->
+    <div class="content mt-5">
+        <table id="id_table" class="table">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">#</th>
+                    <th scope="col">Fecha Inicio</th>
+                    <th scope="col">Fecha Fin</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Duracion</th>
+                    <th scope="col">Pago Diario</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="" *ngFor="let prestamo of prestamos; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{ prestamo.fechaInicio }}</td>
+                    <td>{{ prestamo.fechaFin }}</td>
+                    <td>{{ prestamo.monto!.monto }}</td>
+                    <td>{{ prestamo.monto!.duracion }}</td>
+                    <td>{{ prestamo.pagoDiario }}</td>
+                    <td>{{ prestamo.prestatario!.nombre }}</td>
+                    <td [ngClass]="{
+                        'text-warning': prestamo.estadoPrestamo === 1,
+                        'text-primary': prestamo.estadoPrestamo === 2,
+                        'text-danger': prestamo.estadoPrestamo !== 1 && prestamo.estadoPrestamo !== 2
+                    }">
+                        {{ prestamo.estadoPrestamo === 1 ? "Pendiente" : prestamo.estadoPrestamo === 2 ? "Aprobado" : "Rechazado" }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

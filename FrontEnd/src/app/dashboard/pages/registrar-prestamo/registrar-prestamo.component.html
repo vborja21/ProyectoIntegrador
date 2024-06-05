@@ -1,0 +1,130 @@
+<div class="header-container">
+
+    <h1 class="text-center mb-4"><strong>Solicitud de Prestamos</strong></h1>
+
+    <table class="table table-bordered text-center" style="margin-top: 1.5cm;">
+        <thead class="">
+            <tr>
+                <th></th>
+                <th class="table-dark" scope="col" colspan="5">Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-primary-subtle">
+                <td class="table-secondary">Duración</td>
+                <td class="table-secondary">S/150</td>
+                <td class="table-secondary">S/200</td>
+                <td class="table-secondary">S/300</td>
+                <td class="table-secondary">S/400</td>
+                <td class="table-secondary">S/500</td>
+            </tr>
+            <!-- Modal -->
+            <tr *ngFor="let duracion of ['15', '20', '25', '30', '35']">
+                <td class="table-secondary">{{ duracion }} días</td>
+                <ng-container *ngFor="let monto of montos">
+                    <ng-container *ngIf="monto.duracion === +duracion">
+                        <td class="hoverable-cell"  (click)="selectValue(monto)" data-bs-toggle="modal" data-bs-target="#valueModal">S/. {{
+                            monto.monto }}</td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+            <!-- Fin Modal -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="valueModal" tabindex="-1" aria-labelledby="valueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title" id="valueModalLabel">Valor Seleccionado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="prestamoForm">
+
+                <div class="modal-body">
+                    <div class="form-group row d-flex justify-content-between">
+                        <label class="col-sm-2 col-form-label">Monto</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" value="S/. {{monto}}">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Fecha Inicio</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" formControlName="fechaInicio">
+                        </div>
+                        <div *ngIf="prestamoForm.get('fechaInicio')?.touched">
+                            <div *ngIf="prestamoForm.get('fechaInicio')?.errors?.['required']" class="text-danger">
+                                La fecha de inicio es obligatoria.
+                            </div>
+                            <div *ngIf="prestamoForm.get('fechaInicio')?.errors?.['fechaInicioInvalida']"
+                                class="text-danger">
+                                {{ prestamoForm.get('fechaInicio')?.errors!['fechaInicioInvalida'] }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Fecha Fin</label>
+                        <div class="col-sm-4">
+                            <input type="date" readonly class="form-control" [value]="fechaFin">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Días</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ diasDuracion }} días">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Pago Diario</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" [value]="pagoDiario">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" [disabled]="!prestamoForm.valid" class="btn btn-outline-primary"
+                    (click)="registrarPrestamo()">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="business-info mt-5">
+    <h2 class="text-center mb-4 title">¿Cómo funciona nuestro servicio de préstamos?</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="subtitle">Selección del monto</h4>
+            <p>En nuestro servicio de préstamos, el prestatario tiene la flexibilidad de seleccionar el monto que desea solicitar. Ofrecemos una variedad de opciones de montos para adaptarnos a las necesidades financieras de nuestros clientes.</p>
+        </div>
+        <div class="col-md-6">
+            <h4 class="subtitle">Fecha de inicio y fin</h4>
+            <p>Una vez que el prestatario ha seleccionado el monto del préstamo, puede elegir la fecha de inicio y fin del período de préstamo. Esto proporciona una mayor personalización y control sobre la duración del préstamo, permitiendo a los clientes ajustar el tiempo según sus necesidades.</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4 class="subtitle">Días de préstamo</h4>
+            <p>Al seleccionar las fechas de inicio y fin del préstamo, nuestro sistema calcula automáticamente la duración en días del préstamo. Esto brinda transparencia y claridad sobre el período durante el cual el cliente estará utilizando los fondos prestados.</p>
+        </div>
+        <div class="col-md-6">
+            <h4 class="subtitle">Pago diario</h4>
+            <p>Calculamos el pago diario del préstamo en función del monto seleccionado y la duración del préstamo en días. Esto permite a los clientes conocer de antemano cuánto deberán pagar cada día durante el período del préstamo, facilitando la planificación financiera.</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <h4 class="subtitle">¡Estamos aquí para ayudarte!</h4>
+            <p>Nuestro objetivo es proporcionar un servicio de préstamos transparente, flexible y conveniente que satisfaga las necesidades financieras de nuestros clientes. Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos. ¡Estamos encantados de ayudarte!</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <img src="https://i.pinimg.com/564x/ae/78/b3/ae78b3d0438565d8d48a90b6a60c8995.jpg" alt="Negocio de préstamos" class="img-fluid">
+        </div>
+    </div>
+</div>

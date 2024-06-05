@@ -1,0 +1,130 @@
+<!-- registro-prestatario.component.html -->
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="col-lg-6">
+    <div class="card rounded-3 text-black shadow">
+      <div class="card-header bg-primary text-white">Registro de Prestatario</div>
+      <div class="card-body py-4">
+        <form [formGroup]="registerForm" class="content">
+          <div class="row g-3 mb-4">
+            <!-- Nombre -->
+            <div class="col-md-6">
+              <label for="id_reg_nombre">Nombre</label>
+              <input type="text" formControlName="nombre" placeholder="Ingrese el nombre" class="form-control"
+                id="id_reg_nombre" />
+              <div *ngIf="registerForm.get('nombre')?.errors && registerForm.get('nombre')?.touched">
+                <small class="text-danger" *ngIf="registerForm.get('nombre')?.errors?.['required']">
+                  Nombre es obligatorio.
+                </small>
+                <small class="text-danger" *ngIf="registerForm.get('nombre')?.errors?.['minlength']">
+                  El nombre debe tener al menos 3 caracteres.
+                </small>
+              </div>
+            </div>
+
+            <!-- Apellido -->
+            <div class="col-md-6">
+              <label for="id_reg_apellido">Apellido</label>
+              <input type="text" formControlName="apellido" placeholder="Ingrese el apellido" class="form-control"
+                id="id_reg_apellido" />
+              <div *ngIf="registerForm.get('apellido')?.touched && registerForm.get('apellido')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('apellido')?.errors?.['required']">Apellido es obligatorio.</small>
+                <small *ngIf="registerForm.get('apellido')?.errors?.['minlength']">El apellido debe tener al menos 3
+                  caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Celular -->
+            <div class="col-md-6">
+              <label for="id_reg_celular">Celular</label>
+              <input type="number" formControlName="celular" placeholder="Ingrese el celular" class="form-control"
+                id="id_reg_celular" />
+              <div *ngIf="registerForm.get('celular')?.touched && registerForm.get('celular')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('celular')?.errors?.['required']">Celular es obligatorio.</small>
+                <small *ngIf="registerForm.get('celular')?.errors?.['pattern']">Celular debe tener 9
+                  dígitos.</small>
+              </div>
+            </div>
+
+            <!-- Fecha de Nacimiento -->
+            <div class="col-md-6">
+              <label for="id_reg_fechaNacimiento">Fecha de Nacimiento</label>
+              <input type="date" formControlName="fechaNacimiento" class="form-control" id="id_reg_fechaNacimiento" />
+              <div *ngIf="registerForm.get('fechaNacimiento')?.touched && registerForm.get('fechaNacimiento')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('fechaNacimiento')?.errors?.['required']">Fecha de nacimiento es
+                  obligatoria.</small>
+                <small *ngIf="registerForm.get('fechaNacimiento')?.errors?.['ageInvalid']">Debe ser mayor de 18
+                  años.</small>
+              </div>
+            </div>
+
+            <!-- Correo -->
+            <div class="col-md-6">
+              <label for="id_reg_correo">Correo</label>
+              <input type="email" formControlName="correo" placeholder="Ingrese el correo" class="form-control"
+                id="id_reg_correo" />
+              <div *ngIf="registerForm.get('correo')?.touched && registerForm.get('correo')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('correo')?.errors?.['required']">Correo es obligatorio.</small>
+                <small *ngIf="registerForm.get('correo')?.errors?.['email']">Ingrese un correo válido.</small>
+              </div>
+            </div>
+
+            <!-- Documento -->
+            <div class="col-md-6">
+              <label for="id_reg_documento">Documento</label>
+              <input type="number" formControlName="documento" placeholder="Ingrese el documento" class="form-control"
+                id="id_reg_documento" />
+              <div *ngIf="registerForm.get('documento')?.touched && registerForm.get('documento')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('documento')?.errors?.['required']">Documento es obligatorio.</small>
+                <small *ngIf="registerForm.get('documento')?.errors?.['pattern']">Documento debe tener 8
+                  dígitos.</small>
+              </div>
+            </div>
+
+            <!-- Login -->
+            <div class="col-md-6">
+              <label for="id_reg_login">Login</label>
+              <input type="text" formControlName="login" placeholder="Ingrese el login" class="form-control"
+                id="id_reg_login" />
+              <div *ngIf="registerForm.get('login')?.touched && registerForm.get('login')?.errors" class="text-danger">
+                <small *ngIf="registerForm.get('login')?.errors?.['required']">Login es obligatorio.</small>
+                <small *ngIf="registerForm.get('login')?.errors?.['minlength']">Login debe tener al menos 5
+                  caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="col-md-6">
+              <label for="id_reg_password">Contraseña</label>
+              <input type="password" formControlName="password" placeholder="Ingrese la contraseña" class="form-control"
+                id="id_reg_password" />
+              <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors"
+                class="text-danger">
+                <small *ngIf="registerForm.get('password')?.errors?.['required']">Contraseña es obligatoria.</small>
+                <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Contraseña debe tener al menos 3
+                  caracteres.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center col-lg-12 py-4 d-flex justify-content-between">
+
+            <div>
+              <button routerLink="/" class="btn btn-outline-danger">Regresar</button>
+            </div>
+
+            <div>
+              <!-- <button type="reset" class="btn btn-outline-secondary mx-3">Limpiar</button> -->
+              <button type="submit" [disabled]="!registerForm.valid" (click)="registrarPrestatario()" class="btn btn-outline-primary">Registrar</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

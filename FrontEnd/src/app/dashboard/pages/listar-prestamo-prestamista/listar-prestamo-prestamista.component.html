@@ -1,0 +1,138 @@
+<div class="container mt-5">
+    <form #filtroForm="ngForm" (ngSubmit)="onFilter(filtroForm)">
+        <div class="mb-3 row">
+            <label for="prestatario" class="col-sm-2 col-form-label">Prestatario</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="prestatario" name="prestatario" ngModel
+                    placeholder="Nombre del prestatario">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="fechaDesde" class="col-sm-2 col-form-label">Fecha Solicitud (Desde)</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechaDesde" name="fechaDesde" ngModel>
+            </div>
+            <label for="fechaHasta" class="col-sm-1 col-form-label">Hasta</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="fechaHasta" name="fechaHasta" ngModel>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-success">FILTRAR</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead class="">
+            <tr class="table-dark">
+                <th class="">#</th>
+                <th class="">Nombre</th>
+                <th class="">Fecha Inicio</th>
+                <th class="">Fecha Fin</th>
+                <th class="">Monto</th>
+                <th class="">Pago Diario</th>
+                <th class="">Estado</th>
+                <th class=""></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- Modal -->
+            <tr *ngFor="let presta of prestamos">
+                <td>{{ presta.idPrestamo }}</td>
+                <td>{{ presta.prestatario?.nombre }}</td>
+                <td>{{ presta.fechaInicio }}</td>
+                <td>{{ presta.fechaFin }}</td>
+                <td>S/. {{ presta.monto?.monto }}</td>
+                <td>S/. {{ presta.pagoDiario }}</td>
+                <td [ngClass]="{
+                    'text-warning': presta.estadoPrestamo === 1,
+                    'text-primary': presta.estadoPrestamo === 2,
+                    'text-danger': presta.estadoPrestamo !== 1 && presta.estadoPrestamo !== 2
+                }">{{ presta.estadoPrestamo === 1 ? "Pendiente" : presta.estadoPrestamo === 2 ? "Aprobado" : "Rechazado"}}</td>
+                <td>
+                    <button type="button" (click)="cargarPrestamo(presta.idPrestamo!)" class="btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#valueModal">Ver</button>
+                </td>
+
+            </tr>
+            <!-- Fin Modal -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="valueModal" tabindex="-1" aria-labelledby="valueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="prestamo">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="valueModalLabel">Valor Seleccionado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+
+                <div class="modal-body">
+                    
+                    <div class="form-group row d-flex justify-content-between">
+                        <label class="col-sm-2 col-form-label">Prestatario</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" [value]="prestamo.prestatario?.nombre">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Fecha Inicio</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" [value]="prestamo.fechaInicio">
+                        </div>
+
+
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Fecha Fin</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control" value="{{ prestamo.fechaFin }}">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-2 col-form-label">Monto</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" [value]="prestamo.monto?.monto">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Días</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" [value]="prestamo.monto?.duracion">
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 row d-flex justify-content-between">
+                        <label class="col-sm-4 col-form-label">Pago Diario</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control-plaintext" [value]="prestamo.pagoDiario">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <!-- Mostrar botones si el estado del préstamo es 1 (Pendiente) -->
+                <div class="d-flex justify-content-between"  *ngIf="prestamo.estadoPrestamo === 1">
+                    <button type="submit" class="mx-4 btn btn-outline-primary" (click)="aprobarPrestamo(prestamo.idPrestamo)">Aprobar</button>
+                    <button type="submit" class="btn btn-outline-danger" (click)="rechazarPrestamo(prestamo.idPrestamo)">Rechazar</button>
+                </div>
+            
+                <!-- Mostrar texto "Aprobado" si el estado del préstamo es 2 -->
+                <div *ngIf="prestamo.estadoPrestamo === 2" class="text-success text-center">
+                    <strong>El préstamo está aprobado.</strong>
+                </div>
+            
+                <!-- Mostrar texto "Rechazado" si el estado del préstamo es 3 -->
+                <div *ngIf="prestamo.estadoPrestamo === 3" class="text-danger text-center">
+                    <strong>El préstamo está rechazado.</strong>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

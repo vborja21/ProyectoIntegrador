@@ -1,0 +1,307 @@
+<div class="header-container">
+  <h1 class="text-center mb-4"><strong>Crud de Jefe Prestamista</strong></h1>
+
+  <!-- Botones -->
+  <div class="col-md-23">
+
+    <button type="button" data-bs-toggle="modal" data-bs-target="#idModalRegistrar"
+      class="mt-2 btn btn-warning btn-sm" style="font-size: 20px;">
+      Registrar
+    </button>
+  </div>
+  <br>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table id="id_table" class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Fecha de Nacimiento</th>
+          <th scope="col">Fecha de Creación</th>
+          <th scope="col">Documento</th>
+          <th scope="col">Celular</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Ubicacion</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jefe of jefesPrestamistas; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ jefe.nombre }}</td>
+          <td>{{ jefe.apellido }}</td>
+          <td>{{ jefe.fechaNacimiento }}</td>
+          <td>{{ jefe.fechaCreacion }}</td>
+          <td>{{ jefe.documento }}</td>
+          <td>{{ jefe.celular }}</td>
+          <td>{{ jefe.correo }}</td>
+          <td>{{ jefe.ubicacion?.nombre }}</td>
+          <td>
+            <button type="button" class="btn btn-success btn-sm"
+              (click)="cargarJefePrestamista(jefe.idJefePrestamista!)" data-bs-toggle="modal"
+              data-bs-target="#idModalActualizar">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal Registro -->
+  <div class="modal fade" id="idModalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registro de Jefe Prestamista</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="registerForm" class="content">
+            <!-- Campos -->
+            <div class="row mt-3">
+              <div class="col-lg-4">
+                <label for="id_reg_nombre">Nombre</label>
+                <input type="text" formControlName="nombre" placeholder="Ingrese el nombre" class="form-control"
+                  id="id_reg_nombre" />
+                <div *ngIf="registerForm.get('nombre')?.errors && registerForm.get('nombre')?.touched">
+                  <small class="text-danger" *ngIf="registerForm.get('nombre')?.errors?.['required']">
+                    Nombre es obligatorio.
+                  </small>
+                  <small class="text-danger" *ngIf="registerForm.get('nombre')?.errors?.['minlength']">
+                    El nombre debe tener al menos 3 caracteres.
+                  </small>
+                </div>
+              </div>
+              <!-- Apellido -->
+              <div class="col-lg-4">
+                <label for="id_reg_apellido">Apellido</label>
+                <input type="text" formControlName="apellido" placeholder="Ingrese el apellido" class="form-control"
+                  id="id_reg_apellido" />
+                <div *ngIf="registerForm.get('apellido')?.touched && registerForm.get('apellido')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('apellido')?.errors?.['required']">Apellido es obligatorio.</small>
+                  <small *ngIf="registerForm.get('apellido')?.errors?.['minlength']">El apellido debe tener al menos 3
+                    caracteres.</small>
+                </div>
+              </div>
+              <!-- Documento -->
+              <div class="col-lg-4">
+                <label for="id_reg_documento">Documento</label>
+                <input type="number" formControlName="documento" placeholder="Ingrese el documento" class="form-control"
+                  id="id_reg_documento" />
+                <div *ngIf="registerForm.get('documento')?.touched && registerForm.get('documento')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('documento')?.errors?.['required']">Documento es obligatorio.</small>
+                  <small *ngIf="registerForm.get('documento')?.errors?.['pattern']">Documento debe tener 8
+                    dígitos.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-5 mb-5">
+              <!-- Fecha de Nacimiento -->
+              <div class="col-lg-4">
+                <label for="id_reg_fechaNacimiento">Fecha de Nacimiento</label>
+                <input type="date" formControlName="fechaNacimiento" class="form-control" id="id_reg_fechaNacimiento" />
+                <div *ngIf="registerForm.get('fechaNacimiento')?.touched && registerForm.get('fechaNacimiento')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('fechaNacimiento')?.errors?.['required']">Fecha de nacimiento es
+                    obligatoria.</small>
+                  <small *ngIf="registerForm.get('fechaNacimiento')?.errors?.['ageInvalid']">Debe ser mayor de 18
+                    años.</small>
+                </div>
+              </div>
+              <!-- Correo -->
+              <div class="col-lg-4">
+                <label for="id_reg_correo">Correo</label>
+                <input type="email" formControlName="correo" placeholder="Ingrese el correo" class="form-control"
+                  id="id_reg_correo" />
+                <div *ngIf="registerForm.get('correo')?.touched && registerForm.get('correo')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('correo')?.errors?.['required']">Correo es obligatorio.</small>
+                  <small *ngIf="registerForm.get('correo')?.errors?.['email']">Ingrese un correo válido.</small>
+                </div>
+              </div>
+              <!-- Celular -->
+              <div class="col-lg-4">
+                <label for="id_reg_celular">Celular</label>
+                <input type="number" formControlName="celular" placeholder="Ingrese el celular" class="form-control"
+                  id="id_reg_celular" />
+                <div *ngIf="registerForm.get('celular')?.touched && registerForm.get('celular')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('celular')?.errors?.['required']">Celular es obligatorio.</small>
+                  <small *ngIf="registerForm.get('celular')?.errors?.['pattern']">Celular debe tener 9 dígitos.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3 mb-5">
+              <!-- Login -->
+              <div class="col-lg-4">
+                <label for="id_reg_login">Login</label>
+                <input type="text" formControlName="login" placeholder="Ingrese el login" class="form-control"
+                  id="id_reg_login" />
+                <div *ngIf="registerForm.get('login')?.touched && registerForm.get('login')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('login')?.errors?.['required']">Login es obligatorio.</small>
+                  <small *ngIf="registerForm.get('login')?.errors?.['minlength']">Login debe tener al menos 5
+                    caracteres.</small>
+                </div>
+              </div>
+              <!-- Contraseña -->
+              <div class="col-lg-4">
+                <label for="id_reg_password">Contraseña</label>
+                <input type="password" formControlName="password" placeholder="Ingrese la contraseña"
+                  class="form-control" id="id_reg_password" />
+                <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('password')?.errors?.['required']">Contraseña es obligatoria.</small>
+                  <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Contraseña debe tener al menos 3
+                    caracteres.</small>
+                </div>
+              </div>
+              <!-- Ubicación -->
+              <div class="col-lg-4">
+                <label for="id_reg_ubicacion">Ubicación</label>
+                <select formControlName="idUbicacion" id="id_reg_ubicacion" class="form-control">
+                  <option value="" disabled selected>[Seleccione]</option>
+                  <option *ngFor="let ubi of ubicaciones" value="{{ ubi.idUbicacion }}">
+                    {{ ubi.nombre }}
+                  </option>
+                </select>
+                <div *ngIf="registerForm.get('idUbicacion')?.touched && registerForm.get('idUbicacion')?.errors"
+                  class="text-danger">
+                  <small *ngIf="registerForm.get('idUbicacion')?.errors?.['required']">Ubicación es obligatoria.</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fin de campos -->
+            <div class="modal-footer mt-3">
+              <button type="reset" class="btn btn-secondary">Limpiar</button>
+              <button [disabled]="!registerForm.valid" (click)="registrarJefePrestamista()" type="submit"
+                class="btn btn-success form-control" style="width: 100px;">Registrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fin Modal Registro -->
+
+
+  <!-- Modal Actualizar -->
+
+  <div class="modal fade" id="idModalActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actualización de Jefe Prestamista</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="updateForm" class="content">
+            <div class="submit-form">
+
+              <div class="row mt-2 mb-2">
+                <!-- Nombre -->
+                <div class="col-lg-4">
+                  <label for="id_edit_nombre">Nombre</label>
+                  <input type="text" placeholder="Ingrese el nombre" formControlName="nombre"
+                    class="form-control" name="nombreEdit" id="id_edit_nombre" />
+                  <div *ngIf="updateForm.get('nombre')?.touched && updateForm.get('nombre')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('nombre')?.errors?.['required']">Nombre es obligatorio.</div>
+                    <div *ngIf="updateForm.get('nombre')?.errors?.['minlength']">Nombre debe tener al menos 5
+                      caracteres.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label for="id_edit_apellido">Apellido</label>
+                  <input type="text" placeholder="Ingrese el apellido" formControlName="apellido"
+                    class="form-control" formControlName="apellido" name="apellidoEdit" id="id_edit_apellido"
+                    required />
+                  <div *ngIf="updateForm.get('apellido')?.touched && updateForm.get('apellido')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('apellido')?.errors?.['required']">Apellido es obligatorio.</div>
+                    <div *ngIf="updateForm.get('apellido')?.errors?.['minlength']">Apellido debe tener al menos 3
+                      caracteres.</div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label for="id_edit_fechaNacimiento">Fecha de Nacimiento</label>
+                  <input type="date" 
+                    formControlName="fechaNacimiento" class="form-control"
+                    name="fechaNacimientoEdit" id="id_edit_fechaNacimiento" required />
+                  <div *ngIf="updateForm.get('fechaNacimiento')?.touched && updateForm.get('fechaNacimiento')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('fechaNacimiento')?.errors?.['required']">Fecha de nacimiento es
+                      obligatoria.</div>
+                    <div *ngIf="updateForm.get('fechaNacimiento')?.errors?.['ageInvalid']">Debe ser mayor de 18 años.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3 mb-5">
+
+                <div class="col-lg-4">
+                  <label for="id_edit_correo">Correo</label>
+                  <input type="email" formControlName="correo" formControlName="correo"
+                    placeholder="Ingrese el correo" class="form-control" name="correoEdit" id="id_edit_correo"
+                    required />
+                  <div *ngIf="updateForm.get('correo')?.touched && updateForm.get('correo')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('correo')?.errors?.['required']">Correo es obligatorio.</div>
+                    <div *ngIf="updateForm.get('correo')?.errors?.['email']">Ingrese un correo válido.</div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label for="id_edit_documento">Documento</label>
+                  <input type="number" formControlName="documento" formControlName="documento"
+                    placeholder="Ingrese el Documento" class="form-control" name="documentoEdit" id="id_edit_documento"
+                    required />
+                  <div *ngIf="updateForm.get('documento')?.touched && updateForm.get('documento')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('documento')?.errors?.['required']">Documento es obligatorio.</div>
+                    <div *ngIf="updateForm.get('documento')?.errors?.['pattern']">Documento debe tener 8 dígitos.</div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label for="id_edit_celular">Celular</label>
+                  <input type="number" formControlName="celular" formControlName="celular"
+                    placeholder="Ingrese el Celular" class="form-control" name="celularEdit" id="id_edit_celular"
+                    required />
+                  <div *ngIf="updateForm.get('celular')?.touched && updateForm.get('celular')?.errors"
+                    class="text-danger">
+                    <div *ngIf="updateForm.get('celular')?.errors?.['required']">Celular es obligatorio.</div>
+                    <div *ngIf="updateForm.get('celular')?.errors?.['pattern']">Celular debe tener 9 dígitos.</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Limpiar</button>
+              <div class="form-group text-center">
+                <div class="col-lg-12">
+                  <button [disabled]="!updateForm.valid" (click)="actualizarJefePrestamista()" id="id_act_actualiza"
+                    class="btn btn-success form-control">Actualizar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fin Modal Actualizar -->
+
+</div>

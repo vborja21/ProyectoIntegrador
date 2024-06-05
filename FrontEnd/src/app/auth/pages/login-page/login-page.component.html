@@ -1,0 +1,118 @@
+<header style="background-color: #000000;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-scroll">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#!"></a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!--Section: Design Block-->
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.2);">
+        <div class="container d-flex justify-content-center align-items-center h-100"
+            style="background-color: #000000;">
+            <h1 class="mb-0 text-white display-1">Gota Cash</h1>
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <img src="https://i.pinimg.com/236x/d2/dc/e3/d2dce30ce1fa9504127a9fe850780b5d.jpg"
+                        style="width: 120px;" alt="logo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Section: Design Block-->
+</header>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-5 mx-md-4">
+
+                                <div class="text-center">
+                                    <img src="
+                                    https://i.pinimg.com/564x/c0/85/68/c085681dab32c9d775ce23da24bc7e3a.jpg"
+                                        style="width: 185px;" alt="logo">
+                                    <h4 class="mt-1 mb-5 pb-1">Gota Cash</h4>
+                                </div>
+
+                                <form autocomplete="off" [formGroup]="loginForm" (submit)="onLogin()">
+                                    <p>Por favor, loguearse para acceder</p>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example11">Nombre de Usuario</label>
+                                        <input type="text" id="form2Example11" class="form-control" name="username"
+                                            formControlName="username" />
+
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example22">Contraseña</label>
+                                        <input type="password" id="form2Example22" class="form-control" name="password"
+                                            formControlName="password" />
+
+                                    </div>
+
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                        <button [disabled]="!loginForm.valid"
+                                            class="btn btn-primary btn-block gradient-custom-2 mb-3"
+                                            type="submit">Ingresar</button>
+                                        <br>
+                                    </div>
+
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">No tienes una cuenta?</p>
+
+                                        <button routerLink="/registro" type="button"
+                                            class="btn btn-outline-danger">Crear cuenta</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                <h4 class="mb-4" style="font-size:25px;">Somos más que una compañia</h4>
+                                <p class="small mb-0" style="font-size:15px;">"Somos una empresa especializada en
+                                    brindar soluciones
+                                    financieras a medida, ofreciendo préstamos flexibles y accesibles
+                                    para satisfacer las necesidades de nuestros clientes.
+                                    Con un enfoque en la transparencia y el servicio personalizado,
+                                    nos esforzamos por ayudar a individuos y empresas a alcanzar
+                                    sus objetivos financieros con confianza y tranquilidad."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer -->
+<footer class="text-center text-white" style="background-color: #000000;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+        <!-- Section: CTA -->
+        <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="color: #ffc600;">
+        © 2024 Copyright:
+        <a class="text-white" href="">RapidCash.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
